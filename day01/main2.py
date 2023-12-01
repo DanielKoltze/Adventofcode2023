@@ -1,6 +1,3 @@
-
-
-
 def main():
     file = open('day01/main.txt','r')
     lines = file.readlines()
@@ -13,24 +10,30 @@ def main():
     return sum
 
 
+ 
 def find_numbers(line):
-    numbers = []
-    current_string = ''
-    for char in line:
-        if char.isdigit():
-            numbers.append(char)
-            current_string = ''
-        else:
-            current_string = current_string + char
-            number = find_string_number(current_string)
-            if number != 0:
-                numbers.append(number)
-    return numbers
-            
+    number = ''
+    for i in range(len(line)):
+        if line[i].isdigit():
+            number = line[i]
+            break
+        num = find_number(line[:i+1])
+        if num != -1:
+            number = num
+            break
 
+    for i in range(len(line),0,-1):
+        if line[i-1].isdigit():
+            number = number + line[i-1]
+            break
+        num = find_number(line[i-1:])
+        if num != -1:
+            number = number + num
+            break
+      
+    return number
 
-
-def find_string_number(string):
+def find_number(string):
     word_to_number = [
         'one',
         'two',
@@ -43,23 +46,9 @@ def find_string_number(string):
         'nine',
     ]
     w = ''
-    words = []
-
-    
-
     for word in word_to_number:
-        index = string.find(word)
-        if index != -1:
-            words.append([word,index])
-
-    highest = 0
-    for word in words:
-        if int(word[1]) > highest:
-            highest = int(word[1])
-    for word in words:
-        if int(word[1]) == highest:
-            w = word[0]
-                     
+        if word in string:
+            w = word
     
     if w == 'one':
         return '1'
@@ -83,11 +72,8 @@ def find_string_number(string):
 
 
 
+
+
 print(main())
-
-
-print(find_numbers('dgbgglhmtnkrpq4four51dlpcfivefoureightonetwofourthreefourfive'))
-
-
 
 
