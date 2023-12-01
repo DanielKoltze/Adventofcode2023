@@ -1,12 +1,12 @@
 import string
 
 def main():
-    f = open('test.txt', 'r')
+    f = open('test/test.txt', 'r')
     lines = f.readlines()
     letters = []
     sum = 0
 
-    for line in lines():
+    for line in lines:
         found_letter = find_letter(line)
         letters.append(found_letter)
 
@@ -29,6 +29,11 @@ def find_letter(line):
 
 def find_letter_sum(letter):
     all_letters_string = string.ascii_lowercase + string.ascii_uppercase
-    print(all_letters_string)
+    counter = 0
+    for l in all_letters_string:
+        counter = counter + 1
+        if letter == l:
+            return counter
 
-find_letter_sum('g')
+
+print(main())
