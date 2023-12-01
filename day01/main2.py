@@ -43,12 +43,23 @@ def find_string_number(string):
         'nine',
     ]
     w = ''
+    words = []
 
-    reversed_string = ''.join(reversed(string))
+    
 
     for word in word_to_number:
-        if word in reversed_string:
-            w = word
+        index = string.find(word)
+        if index != -1:
+            words.append([word,index])
+
+    highest = 0
+    for word in words:
+        if int(word[1]) > highest:
+            highest = int(word[1])
+    for word in words:
+        if int(word[1]) == highest:
+            w = word[0]
+                     
     
     if w == 'one':
         return '1'
@@ -72,9 +83,6 @@ def find_string_number(string):
 
 
 
-print(find_string_number('ksevensixzmrhsszlngfiveztbkqs'))
-
-
-
+print(main())
 
 
