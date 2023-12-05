@@ -4,10 +4,16 @@ def main():
     lines = [line.strip('\n') for line in lines]
 
     seeds_line = lines[0][7:].split(' ')
-    seeds_line = [int(v) for v in seeds_line]
     lines.remove(lines[0])
     lines.remove(lines[0])
+    pairs = []
+    for i in range(0, len(seeds_line), 2):
+        pairs.append(seeds_line[i-1] + ' ' + seeds_line[i])
+
+
+    seeds_line = get_seeds(pairs)
     seeds = []
+
     for seed in seeds_line:
         seeds.append({'is_changed':False,'seed':seed})
 
@@ -41,6 +47,15 @@ def get_value(line,seed):
         difference = new_value - start
         return seed + difference
     return None
+
+def get_seeds(pairs):
+    seeds = []
+    for pair in pairs:
+        pair = [int(i) for i in pair.split(' ')]
+        for i in range(pair[0]+1):
+            seeds.append(pair[1]+i)
+    return seeds
+
 
 print(main())
 
