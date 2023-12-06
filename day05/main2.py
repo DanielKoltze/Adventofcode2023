@@ -11,30 +11,27 @@ def main():
         pairs.append(seeds_line[i-1] + ' ' + seeds_line[i])
 
 
-    seeds_line = get_seeds(pairs)
-    seeds = []
-
-    for seed in seeds_line:
-        seeds.append({'is_changed':False,'seed':seed})
+    seeds = get_seeds(pairs)
+    lowest_value = 999999999
 
     lines = [c for c in lines if 'map' not in c]
-    v = 0
-    for line in lines:
-        if line != '':
-            for i in range(len(seeds)):
-                if not seeds[i]['is_changed']:
-                    value = get_value(line,seeds[i]['seed'])
-                    if value != None:
-                        seeds[i]['seed'] = value
-                        seeds[i]['is_changed'] = True
-        else:
-            for seed in seeds:
-                seed['is_changed'] = False
-    result = 0      
+    current_seed_value = 0
+
     for seed in seeds:
-        if result == 0 or seed['seed'] < result:
-            result = seed['seed']
-    return result
+        has_changed = False
+        for line in lines:
+            if line != '':
+                if not has_changed:
+                    value = get_value(line,seed)
+                    if value != None:
+                        current_seed_value = value
+                        has_changed = True
+            else:
+                has_changed = False
+        if current_seed_value < lowest_value:
+            lowest_value = current_seed_value
+    
+    return lowest_value
 
 
 
