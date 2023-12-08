@@ -4,7 +4,7 @@ def main():
     del lines[0]
     del lines[0]
     nodes = get_nodes(lines)
-    current_node = lines[0][:3]
+    current_node = 'AAA'
     index_directions = 0
     sum = 0
     while(current_node != 'ZZZ'):
